@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  server:
+    image: goapi
+    ports:
+       - "9000:9000"
+    depends_on:
+       - db
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456

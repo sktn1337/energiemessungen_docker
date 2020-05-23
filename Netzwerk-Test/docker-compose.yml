@@ -1,0 +1,56 @@
+version: '3'
+services:
+   tcp1: 
+      image: golang
+      command: ./tcp-test :8080 tcp2:8080
+      ports:
+           - "9000:9000"
+      volumes: 
+           - ./tcp-main:/tcp-main
+     #not needed/possible because of circular dependency
+     # depends_on:
+     #      - tcp2
+      working_dir: /tcp-main
+      container_name: tcp-main
+   #   networks:
+   #       - go_net
+   tcp2:
+      image: golang
+      command: ./tcp-answer-test :8080 tcp3:8080
+      volumes:
+            - ./tcp-sec:/tcp-sec
+      working_dir: /tcp-sec
+      container_name: tcp2
+     # depends_on:
+     #       - tcp3
+     # networks:
+     #       - go_net
+   tcp3:
+      image: golang
+      command: ./tcp-answer-test :8080 tcp4:8080
+      volumes:
+            - ./tcp-sec:/tcp-sec
+      working_dir: /tcp-sec
+     # depends_on:
+     #       - tcp4
+      container_name: tcp3
+  #    networks:
+  #          - go_net
+   tcp4:
+      image: golang
+      command: ./tcp-answer-test :8080 tcp1:8080
+      volumes:
+            - ./tcp-sec:/tcp-sec
+      working_dir: /tcp-sec
+      container_name: tcp4
+ #     networks:
+ #           - go_net
+
+#networks:
+#      go_net:
+#          driver: bridge
+#          driver_opts:
+#               parent: wlp2s0
+#          ipam:
+#             config:
+#                 - subnet: 192.168.90.0/24

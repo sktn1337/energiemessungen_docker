@@ -1,0 +1,11 @@
+body{
+	background-color: white;
+}
+
+#logWindow{
+	width: 1000px;
+	height:600px;
+	background-color:grey;
+	color:black;
+	overflow: scroll;
+}

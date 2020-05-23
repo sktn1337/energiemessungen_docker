@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  server:
+    image: go_server
+    ports:
+    - "8090:8080"
+

@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  server:
+    image: go_server
+    ports:
+       - "8090:8080"
+    networks:
+       - go-api-own
+
+networks:
+  go-api-own:
+     external: true

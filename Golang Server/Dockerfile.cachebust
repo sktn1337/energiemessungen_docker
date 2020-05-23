@@ -1,0 +1,10 @@
+FROM golang:1.13.0-stretch
+
+WORKDIR /app
+COPY server.go .
+ARG CGO_ENABLED=0
+ARG CACHEBUST=no
+RUN go build -o server .
+EXPOSE 8080
+
+CMD ./server
